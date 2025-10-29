@@ -50,7 +50,6 @@ const renderProducts = () => {
       </div>
     </div>`;
 
-          // Prepare values with light safety and formatting assumptions
           const title = product?.title
             ? (product.title.length > 20 ? product.title.substring(0, 20) + '...' : product.title)
             : '';
@@ -59,7 +58,6 @@ const renderProducts = () => {
           const productUrl = product?.product_url || product?.productUrl || product?.url || '#';
           const categoryId = product?.category_id ?? '';
 
-          // Replace placeholders using replaceAll
           productHTML = productHTML
             .replaceAll('[PRODUCT.TITLE]', title)
             .replaceAll('[PRODUCT.PRICE]', String(price))
@@ -81,10 +79,24 @@ const renderProducts = () => {
       }
     });
 };
+let enableForm = () => {
+  const form = document.getElementById("form_voting");
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const productID = document.getElementById("select_product").value;
+      saveVotes(productID)
+        .then(response => {
+          alert(response.message)
+        })
+    })
+  }
+}
 
 
 (function welcomeMessage() {
   showToast();
   showVideo();
+  enableForm();
   renderProducts();
 })();

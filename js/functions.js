@@ -30,4 +30,6 @@ let fetchProducts =  (url) => {
         });
 }
 
+
+
 export { fetchProducts }
